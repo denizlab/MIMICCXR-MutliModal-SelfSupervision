@@ -2,7 +2,7 @@
 Multi-Modal Self-Supervision Pre-training BenchMarking on training with MIMICCXR and evaluating with CheXpert
 
 Pipeline:
-![image](https://github.com/NoTody/MIMICCXR-MutliModal-SelfSupervision/blob/main/imgs/final.png = 250x250)
+![](https://github.com/NoTody/MIMICCXR-MutliModal-SelfSupervision/blob/main/imgs/final.png = 250x250)
 
 # **Example Pretraining command:**
 ```
