@@ -246,8 +246,6 @@ class BASE_SLIP(BASE):
 
         # compute loss
         mm_loss = self.mm_criterion(img_feat_mm_proj, text_feat_proj)
-                self.mm_criterion(img_feat1_proj, text_feat_proj) + \
-                self.mm_criterion(img_feat2_proj, text_feat_proj)) / 3
 
         return (img_feat1, img_feat2, img_feat_mm), (images_ssl1, images_ssl2, images_mm), mm_loss
 
