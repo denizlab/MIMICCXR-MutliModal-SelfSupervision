@@ -1,8 +1,9 @@
 # MIMICXR-MutliModal-SelfSupervision
-Multi-Modal Self-Supervision Pre-training BenchMarking on training with MIMICCXR and evaluating with CheXpert
+Multi-Modal Self-Supervision Pre-training BenchMarking on training with MIMICCXR and evaluating with CheXpert and NIH-ChestRay-14
 
 Pipeline:
-![alt text](https://github.com/NoTody/MIMICCXR-MutliModal-SelfSupervision/blob/main/imgs/final.png)
+
+<img src="https://github.com/NoTody/MIMICCXR-MutliModal-SelfSupervision/blob/main/imgs/final.png" width="500" />
 
 # **Example Pretraining command:**
 ```
