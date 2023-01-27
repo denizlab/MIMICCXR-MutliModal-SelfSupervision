@@ -163,7 +163,7 @@ def main():
         trainer.fit(model)
     elif args.mode == "resume":
         print("Resume model")
-        trainer.fit(model, ckpt_path=hparams.checkpoint_path)
+        trainer.fit(model, ckpt_path=args.checkpoint_path)
     else:
         raise NotImplementedError("hparams.mode not implemented")
 

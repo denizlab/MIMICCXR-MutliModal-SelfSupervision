@@ -57,7 +57,6 @@ class MOCOV2(BASE_SSL):
 
     def shared_forward(self, batch, batch_idx):
         images_ssl1, images_ssl2 = batch
-        images_ssl1, images_ssl2 = torch.stack((images_ssl1)), torch.stack((images_ssl2)) 
 
         # mocov2
         # ema update

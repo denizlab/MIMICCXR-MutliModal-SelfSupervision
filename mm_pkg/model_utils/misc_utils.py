@@ -299,3 +299,8 @@ def soft_cross_entropy(student_logit, teacher_logit):
     '''
     return -(teacher_logit * torch.nn.functional.log_softmax(student_logit, 1)).sum()/student_logit.shape[0]
 
+
+def tuple_to_tensor(tuple_of_tensors):
+    return torch.stack(list(tuple_of_tensors), dim=0)
+
+

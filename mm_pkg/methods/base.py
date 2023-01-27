@@ -191,6 +191,7 @@ class BASE_SSL(BASE):
     # collate_fn for tokenizing input
     def collate_fn_batch_encoding(self, batch):
         _, images_ssl1, images_ssl2, _ = zip(*batch)
+	images_ssl1, images_ssl2 = tuple_to_tensor(images_ssl1), tuple_to_tensor(images_ssl2)
         return images_ssl1, images_ssl2
 
 

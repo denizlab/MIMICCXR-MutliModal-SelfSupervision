@@ -30,8 +30,6 @@ class SIMCLR(BASE_SSL):
 
     def shared_forward(self, batch, batch_idx):
         images_ssl1, images_ssl2 = batch
-        # only use first image for clip
-        images_ssl1, images_ssl2 = torch.stack((images_ssl1)), torch.stack((images_ssl2))
 
         # simclr 
         feat1, feat2 = self.img_backbone(images_ssl1), self.img_backbone(images_ssl2)
