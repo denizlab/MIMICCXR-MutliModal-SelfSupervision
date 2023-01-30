@@ -123,13 +123,13 @@ class BASE(pl.LightningModule):
         learnable_params = self.learnable_params
 
         if self.hparams.optimizer == "adamw":
-            optimizer = AdamW(learnable_params, lr=self.hparams.lr_backbone, weight_decay=self.hparams.weight_decay)
+            optimizer = AdamW(learnable_params, lr=self.hparams.lr_img_backbone, weight_decay=self.hparams.weight_decay)
         elif self.hparams.optimizer == "lamb":
-            optimizer = optim.Lamb(learnable_params, lr=self.hparams.lr_backbone, weight_decay=self.hparams.weight_decay)
+            optimizer = optim.Lamb(learnable_params, lr=self.hparams.lr_img_backbone, weight_decay=self.hparams.weight_decay)
         elif self.hparams.optimizer == "sgd":
-            optimizer = SGD(learnable_params, lr=self.hparams.lr_backbone, weight_decay=self.hparams.weight_decay, momentum=self.hparams.momentum)
+            optimizer = SGD(learnable_params, lr=self.hparams.lr_img_backbone, weight_decay=self.hparams.weight_decay, momentum=self.hparams.momentum)
         elif self.hparams.optimizer == "lars":
-            optimizer = LARS(learnable_params, lr=self.hparams.lr_backbone, weight_decay=self.hparams.weight_decay, 
+            optimizer = LARS(learnable_params, lr=self.hparams.lr_img_backbone, weight_decay=self.hparams.weight_decay, 
                     weight_decay_filter=exclude_bias_and_norm, lars_adaptation_filter=exclude_bias_and_norm)
         else:
             raise NotImplementedError(f"This {self.args.optimizer} optimizer is not implemented yet, \
@@ -191,7 +191,7 @@ class BASE_SSL(BASE):
     # collate_fn for tokenizing input
     def collate_fn_batch_encoding(self, batch):
         _, images_ssl1, images_ssl2, _ = zip(*batch)
-	images_ssl1, images_ssl2 = tuple_to_tensor(images_ssl1), tuple_to_tensor(images_ssl2)
+        images_ssl1, images_ssl2 = tuple_to_tensor(images_ssl1), tuple_to_tensor(images_ssl2)
         return images_ssl1, images_ssl2
 
 

@@ -89,10 +89,8 @@ def parse_args_pretrain():
     parser.add_argument("--ssl_scale", type=float, default=1.0)
 
     # learning rate setup
-    parser.add_argument("--lr_backbone", type=float, default=1e-4)
-    parser.add_argument("--lr_projector", type=float, default=1e-4)
-    parser.add_argument("--lr_img_backbone", type=float, default=2e-2)
-    parser.add_argument("--lr_text_backbone", type=float, default=2e-4)
+    parser.add_argument("--lr_img_backbone", type=float, default=1e-4)
+    parser.add_argument("--lr_text_backbone", type=float, default=1e-4)
     parser.add_argument("--min_lr_backbone", type=float, default=1e-5)
     parser.add_argument("--min_lr_projector", type=float, default=1e-5)
 
