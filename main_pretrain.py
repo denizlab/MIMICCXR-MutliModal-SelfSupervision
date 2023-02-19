@@ -7,7 +7,7 @@ from pytorch_lightning.strategies.ddp import DDPStrategy
 from pytorch_lightning import loggers as pl_loggers
 from mm_pkg.methods import METHODS
 from mm_pkg.model_utils.misc_utils import make_contiguous
-
+import torch
 
 IMG_BACKBONES = {
     "resnet2d_18",
@@ -76,6 +76,7 @@ def parse_args_pretrain():
     parser.add_argument("--max_length", type=int, default=128)
     parser.add_argument("--pool", type=str, default="cls")
     parser.add_argument('--full_report', default=False, action='store_true')
+    parser.add_argument('--exclude_label', default=False, action='store_true')
 
     # encoder/projector dimension
     parser.add_argument("--img_embedding_dim", type=int, default=2048)
@@ -106,12 +107,12 @@ def parse_args_pretrain():
 
     # misc
     parser.add_argument("--per_warmup_steps", type=float, default=0.03)
-    parser.add_argument("--optimizer",  choices=['adamw', 'lamb', 'sgd', 'lars'], type=str, default="adamw")
+    parser.add_argument("--optimizer",  choices=['adamw', 'sgd', 'lars'], type=str, default="adamw")
     parser.add_argument("--scheduler",  choices=['cosine', 'step'], type=str, default="cosine")
 
     # dataset args
-    parser.add_argument("--train_df_path", type=str, default= '/gpfs/data/denizlab/Users/hh2740/mimic-cxr_full_train.csv')
-    parser.add_argument("--val_df_path", type=str, default= '/gpfs/data/denizlab/Users/hh2740/mimic-cxr_full_val.csv')
+    parser.add_argument("--train_df_path", type=str, default= '/gpfs/data/denizlab/Users/hh2740/mimic-cxr-jpg_full_train.csv')
+    parser.add_argument("--val_df_path", type=str, default= '/gpfs/data/denizlab/Users/hh2740/mimic-cxr-jpg_full_val.csv')
 
     args = parser.parse_args()
     return args
@@ -119,6 +120,8 @@ def parse_args_pretrain():
 
 def main():
     args = parse_args_pretrain()
+
+    #torch.set_float32_matmul_precision('high')
 
     print(f"args Report:\n{args}")
     seed_everything(args.seed)

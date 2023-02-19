@@ -1,0 +1,43 @@
+[rank: 0] Global seed set to 1000
+Some weights of the model checkpoint at microsoft/BiomedVLP-CXR-BERT-general were not used when initializing BertModel: ['cls.predictions.transform.LayerNorm.bias', 'cls.predictions.transform.LayerNorm.weight', 'cls.seq_relationship.bias', 'cls.predictions.bias', 'cls.seq_relationship.weight', 'cls.predictions.transform.dense.weight', 'cls.predictions.decoder.weight', 'cls.predictions.transform.dense.bias', 'cls.predictions.decoder.bias']
+- This IS expected if you are initializing BertModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Using 16bit None Automatic Mixed Precision (AMP)
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+`Trainer(val_check_interval=1.0)` was configured so validation will run at the end of the training epoch..
+[rank: 0] Global seed set to 1000
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1,2,3]
+
+  | Name           | Type               | Params
+------------------------------------------------------
+0 | img_backbone   | resnet_model       | 23.5 M
+1 | img_projector  | ProjectionHeadCLIP | 1.3 M 
+2 | mm_criterion   | CLIP_Loss          | 0     
+3 | text_backbone  | bert_model         | 109 M 
+4 | text_projector | ProjectionHeadCLIP | 657 K 
+------------------------------------------------------
+134 M     Trainable params
+0         Non-trainable params
+134 M     Total params
+269.921   Total estimated model params size (MB)
+SLURM auto-requeueing enabled. Setting signal handlers.
+Epoch 0, global step 1187: 'val_loss' reached 3.72960 (best 3.72960), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=0-step=1187.ckpt' as top 1
+Epoch 1, global step 2374: 'val_loss' reached 3.59535 (best 3.59535), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=1-step=2374.ckpt' as top 1
+Epoch 2, global step 3561: 'val_loss' reached 3.49928 (best 3.49928), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=2-step=3561.ckpt' as top 1
+Epoch 3, global step 4748: 'val_loss' reached 3.47697 (best 3.47697), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=3-step=4748.ckpt' as top 1
+Epoch 4, global step 5935: 'val_loss' reached 3.37795 (best 3.37795), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=4-step=5935.ckpt' as top 1
+Epoch 5, global step 7122: 'val_loss' reached 3.34978 (best 3.34978), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=5-step=7122.ckpt' as top 1
+Epoch 6, global step 8309: 'val_loss' reached 3.32538 (best 3.32538), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=6-step=8309.ckpt' as top 1
+Epoch 7, global step 9496: 'val_loss' reached 3.30722 (best 3.30722), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=7-step=9496.ckpt' as top 1
+Epoch 8, global step 10683: 'val_loss' reached 3.27291 (best 3.27291), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=8-step=10683.ckpt' as top 1
+Epoch 9, global step 11870: 'val_loss' reached 3.24322 (best 3.24322), saving model to '/gpfs/data/denizlab/Users/hh2740/MIMICCXR-MutliModal-SelfSupervision/model_saved/epoch=9-step=11870.ckpt' as top 1
+Epoch 10, global step 13057: 'val_loss' was not in top 1

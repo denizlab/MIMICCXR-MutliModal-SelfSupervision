@@ -165,7 +165,7 @@ def adjust_learning_rate_v2(optimizer, base_lr, warmup_steps, total_steps, curre
     else:
         current_step -= warmup_steps
         total_steps -= warmup_steps
-        q = 0.5 * (1 + math.cos(math.pi * current_steps / total_steps))
+        q = 0.5 * (1 + math.cos(math.pi * current_step / total_steps))
         end_lr = base_lr * 0.001
         lr = base_lr * q + end_lr * (1 - q)
  

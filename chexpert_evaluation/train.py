@@ -290,7 +290,7 @@ def main(args):
 
 
     if args.model_name == "densenet121":
-        size = 121 
+        size = 121
         features_dim = 2048
         out_size = nnClassCount
         model = densenet_model(size, features_dim, out_size, pretrained=args.pretrained).cuda() # Step 0: Initialize global model and load the model

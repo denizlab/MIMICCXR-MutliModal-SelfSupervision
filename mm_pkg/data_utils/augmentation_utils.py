@@ -1,9 +1,7 @@
 import random
 import torch
 import numpy as np
-import cv2
 import math
-import h5py
 import torch.nn as nn
 from scipy import ndimage as nd
 from scipy.ndimage import rotate, shift
@@ -320,8 +318,8 @@ class Normalize(object):
         Returns:
             array: numpy ndarray
         """
-        array -= mean
-        array /= np.maximum(std, 10**(-5))
+        array -= self.mean
+        array /= np.maximum(self.std, 10**(-5))
         return array
 
     def __repr__(self):
@@ -454,7 +452,7 @@ class TrainTransform(object):
                         brightness=(0.6, 1.4), contrast=(0.6, 1.4), saturation=0, hue=0,
                     )
                 ],
-                p=0.5,
+                p=0.8,
             ),
             GaussianBlur(p=0.5, sigma_min=0.1, sigma_max=3.0),
             transforms.ToTensor(),

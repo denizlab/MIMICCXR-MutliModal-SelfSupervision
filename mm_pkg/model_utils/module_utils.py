@@ -22,8 +22,8 @@ def get_embed(model, text_encodings, pool):
     if pool == 'cls':
         text_embed = text_hidden_states[-1][:, 0, :]
     elif pool == 'mean':
-        text_embed = (text_hidden_states[-1] * text_encod['attention_mask'].unsqueeze(-1)).sum(1) \
-                     / text_encod['attention_mask'].sum(-1).unsqueeze(-1)
+        text_embed = (text_hidden_states[-1] * text_encodings['attention_mask'].unsqueeze(-1)).sum(1) \
+                     / text_encodings['attention_mask'].sum(-1).unsqueeze(-1)
     else:
         raise NotImplementedError("Wrong pool input!")
 

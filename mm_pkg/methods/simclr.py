@@ -23,8 +23,8 @@ class SIMCLR(BASE_SSL):
         self.simclr_projector = nn.Sequential(
             nn.Linear(self.hparams.img_embedding_dim, self.hparams.simclr_proj_hidden_dim, bias=False),
             nn.BatchNorm1d(self.hparams.simclr_proj_hidden_dim),
-            nn.ReLU(inplace=True),
-            nn.Linear(self.hparams.simclr_proj_hidden_dim, self.hparams.simclr_proj_output_dim, bias=True),
+            nn.ReLU(),
+            nn.Linear(self.hparams.simclr_proj_hidden_dim, self.hparams.simclr_proj_output_dim, bias=False),
         )
 
 

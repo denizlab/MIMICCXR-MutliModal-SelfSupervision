@@ -5,7 +5,7 @@ import pickle
 from pathlib import Path
 import torch.nn as nn
 import torch.nn.functional as F
-import torch_optimizer as optim
+#import torch_optimizer as optim
 from torch.utils.data import DataLoader
 from torch.optim import AdamW, SGD
 from torch.optim.lr_scheduler import MultiStepLR
@@ -41,12 +41,14 @@ class BASE(pl.LightningModule):
 
     def _build_model(self):
         self.img_backbone = self.img_backbones[self.hparams.img_backbone]
-        self.img_projector = ProjectionHeadConVIRT(self.hparams.img_embedding_dim, \
-                        self.hparams.projection_dim, self.hparams.dropout)
 
         if self.hparams.method == "CLIP":
+            self.img_projector = ProjectionHeadCLIP(self.hparams.img_embedding_dim, \
+                        self.hparams.projection_dim, self.hparams.dropout)
             self.mm_criterion = CLIP_Loss(self.hparams.temperature_mm)
         elif self.hparams.method == "ConVIRT":
+            self.img_projector = ProjectionHeadConVIRT(self.hparams.img_embedding_dim, \
+                        self.hparams.projection_dim, self.hparams.dropout)
             self.mm_criterion = ConVIRT_Loss(self.hparams.batch_size, self.hparams.alpha, self.hparams.temperature_mm, \
                         self.hparams.gpus * self.hparams.num_nodes)
         else:
@@ -100,9 +102,9 @@ class BASE(pl.LightningModule):
 
 
     def setup(self, stage=None):
-        mimic_cxr_path = Path('/gpfs/data/denizlab/Datasets/Public/physionet.org/files/mimic-cxr/2.0.0')
+        mimic_cxr_path = Path('/gpfs/data/denizlab/Datasets/Public/physionet.org/files/mimic-cxr-jpg/2.0.0')
         # load all resized image mapping
-        with open(mimic_cxr_path / 'mimic_cxr_imgs_v3.pkl', 'rb') as handle:
+        with open(mimic_cxr_path / 'mimic_cxr_imgs.pkl', 'rb') as handle:
             dict_image_mapping = dict(pickle.load(handle))
         print("Trainset Loading ...")
         self.ds_train = MIMIC_CXR_Unsupervised(args=self.args, dict_image_mapping=dict_image_mapping, 
@@ -124,8 +126,8 @@ class BASE(pl.LightningModule):
 
         if self.hparams.optimizer == "adamw":
             optimizer = AdamW(learnable_params, lr=self.hparams.lr_img_backbone, weight_decay=self.hparams.weight_decay)
-        elif self.hparams.optimizer == "lamb":
-            optimizer = optim.Lamb(learnable_params, lr=self.hparams.lr_img_backbone, weight_decay=self.hparams.weight_decay)
+        # elif self.hparams.optimizer == "lamb":
+        #     optimizer = optim.Lamb(learnable_params, lr=self.hparams.lr_img_backbone, weight_decay=self.hparams.weight_decay)
         elif self.hparams.optimizer == "sgd":
             optimizer = SGD(learnable_params, lr=self.hparams.lr_img_backbone, weight_decay=self.hparams.weight_decay, momentum=self.hparams.momentum)
         elif self.hparams.optimizer == "lars":
@@ -138,7 +140,7 @@ class BASE(pl.LightningModule):
         self.warmup_steps = self.hparams.per_warmup_steps * self.total_steps
 
         if self.hparams.scheduler == "cosine":
-            scheduler = WarmupCosineSchedule(optimizer, self.warmup_steps, self.total_steps)
+            scheduler = WarmupCosineSchedule(optimizer, 0., self.total_steps)
         elif self.hparams.scheduler == "step":
             milestones = [(int)(0.5 * self.hparams.max_epochs), (int)(0.8 * self.hparams.max_epochs)]
             scheduler = MultiStepLR(optimizer, milestones=milestones, gamma=0.1)
