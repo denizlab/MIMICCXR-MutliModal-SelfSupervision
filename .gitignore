@@ -130,5 +130,5 @@ dmypy.json
 
 # spec
 model_saved/
-**/.err
-**/.out
+**/*.err
+**/*.out
